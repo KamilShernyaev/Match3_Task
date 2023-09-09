@@ -1,15 +1,22 @@
 using UnityEngine;
 
 public class AssetProvider : IAssetProvider
+{
+    public GameObject Instantiate(string path,Vector3 at, Transform parent)
     {
-        public GameObject Instantiate(string path, Vector3 at)
-        {
-            var prefab = Resources.Load<GameObject>(path);
-            return Object.Instantiate(prefab, at, Quaternion.identity);
-        }
-            public GameObject Instantiate(string path)
-        {
-            var prefab = Resources.Load<GameObject>(path);
-            return Object.Instantiate(prefab);
-        }
+        var prefab = Resources.Load<GameObject>(path);
+        return Object.Instantiate(prefab, at, Quaternion.identity,parent);
     }
+    
+    public GameObject Instantiate(string path)
+    {
+        var prefab = Resources.Load<GameObject>(path);
+        return Object.Instantiate(prefab);
+    }
+
+    public AudioContainer LoadAudioContainer(string path)
+    {
+        var audioContainer = Resources.Load<AudioContainer>(path);
+        return audioContainer;
+    }
+}
