@@ -39,14 +39,14 @@ public class GameFactory : IGameFactory
             }
         }
         board.Init();
-        RegisterProgressWatchers(boardGameObject);
+        RegisterProgressReader(boardGameObject);
         return boardGameObject;
     }
 
     public GameObject CreateAudioSource() => 
         _audioSource =_assets.Instantiate(AssetPath.AudioSourcePath);
 
-    private void RegisterProgressWatchers(GameObject gameObject)
+    private void RegisterProgressReader(GameObject gameObject)
     {
         foreach (ISavedProgressReader progressReader in gameObject.GetComponentsInChildren<ISavedProgressReader>())
         {

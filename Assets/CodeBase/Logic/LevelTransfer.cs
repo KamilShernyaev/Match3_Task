@@ -7,7 +7,7 @@ namespace CodeBase.Logic
     public string TransferTo;
     private IGameStateMachine _stateMachine;
 
-        void Start() => _stateMachine = AllServices.Container.Single<IGameStateMachine>();
+    void Start() => _stateMachine = AllServices.Container.Single<IGameStateMachine>();
 
     public void Change()
     {

@@ -6,7 +6,7 @@ using DG.Tweening;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public sealed class Board : MonoBehaviour, ISavedProgress
+public sealed class Board : MonoBehaviour
 {
     [SerializeField] private TileTypeAsset[] tileTypes;
     [SerializeField] private List<Row> rows;
@@ -18,6 +18,8 @@ public sealed class Board : MonoBehaviour, ISavedProgress
     private bool _isMatching;
     private bool _isShuffling;
     private IAudioService _audioService;
+    private int score;
+
 
     private TileData[,] Matrix
     {
@@ -122,6 +124,13 @@ public sealed class Board : MonoBehaviour, ISavedProgress
         _isSwapping = false;
     }
 
+    private void Update() {
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            Shuffle();
+        }
+    }
+
     private async Task<bool> TryMatchAsync()
     {
         var didMatch = false;
@@ -157,15 +166,5 @@ public sealed class Board : MonoBehaviour, ISavedProgress
             foreach (var tile in row.tiles)
                 tile.Type = tileTypes[Random.Range(0, tileTypes.Length)];
         _isShuffling = false;
-    }
-
-    public void UpdateProgress(PlayerProgress progress)
-    {
-
-    }
-
-    public void LoadProgress(PlayerProgress progress)
-    {
-
     }
 }
