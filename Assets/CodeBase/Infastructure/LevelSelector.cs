@@ -21,6 +21,6 @@ public class LevelSelector : MonoBehaviour, ISavedProgress
 
     public void LoadProgress(PlayerProgress progress)
     {
-        HighScore = progress.WorldData.Score;
+
     }
 }
