@@ -1,6 +1,13 @@
 using System;
 using System.Collections.Generic;
 
+/// <summary>
+/// Класс GameStateMachine представляет автомат состояний игры.
+/// </summary>
+/// <remarks>
+/// Он управляет переходами между различными состояниями игры и
+/// предоставляет методы для входа в новое состояние с передачей дополнительных данных.
+/// </remarks>
 public class GameStateMachine : IGameStateMachine
 {
     private Dictionary<Type, IExitableState> _states;

@@ -11,10 +11,16 @@ public class GameFactory : IGameFactory
         _assets = assets;
 
     public GameObject CreateBoard(Transform parent) => 
-        _assets.Instantiate(ContantsAssetPath.BoardPath, parent.transform.position, parent);
+        _assets.Instantiate(ConstantsAssetPath.BoardPath, parent.transform.position, parent);
     
     public GameObject CreateAudioSource() => 
-        _assets.Instantiate(ContantsAssetPath.AudioSourcePath);
+        _assets.Instantiate(ConstantsAssetPath.AudioSourcePath); 
+
+    public GameObject CreateTimerStarter() =>
+        _assets.Instantiate(ConstantsAssetPath.TimerStarterPath);
+
+    public GameObject CreateResultManager() =>
+        _assets.Instantiate(ConstantsAssetPath.ResultManagerPath);
 
     private void RegisterProgressReader(GameObject gameObject)
     {
@@ -31,10 +37,4 @@ public class GameFactory : IGameFactory
 
         ProgressReaders.Add(progressReader);
     }
-
-    public GameObject CreateTimerStarter() =>
-        _assets.Instantiate(ContantsAssetPath.TimerStarterPath);
-
-    public GameObject CreateResultManager() =>
-        _assets.Instantiate(ContantsAssetPath.ResultManagerPath);
 }

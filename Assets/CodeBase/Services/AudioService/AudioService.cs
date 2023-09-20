@@ -15,7 +15,7 @@ public class AudioService : IAudioService
     private void RegisterAudio()
     {
         cachedAudio = new Dictionary<SoundType, AudioClip>();
-        foreach (AudioItem audioItem in _assetProvider.LoadAudioContainer(ContantsAssetPath.AudioPath).AudioItems)
+        foreach (AudioItem audioItem in _assetProvider.LoadAudioContainer(ConstantsAssetPath.AudioPath).AudioItems)
         {
             cachedAudio.Add(audioItem.SoundType, audioItem.Sound);
         }

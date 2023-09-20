@@ -1,6 +1,13 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// Класс LoadLevelState представляет состояние загрузки уровня.
+/// </summary>
+/// <remarks>
+/// В этом состоянии происходит загрузка указанного уровня, инициализация игрового мира,
+/// передача прогресса игры читателям прогресса, и переход в состояние GameLoopState.
+/// </remarks>
 public class LoadLevelState : IPayloadedState<string>
 {
   private const string InitialPointTag = "InitialPoint";
@@ -61,19 +68,21 @@ public class LoadLevelState : IPayloadedState<string>
   }
   
   private void InitGameWorld()
-    {
-        LevelStaticData levelData = LevelStaticData();
-        _audioService.PlayLoopSound(SoundType.Main_Theme_Music, CreateAudioSourceForMusic().GetComponent<AudioSource>());
-        AudioSource tempAudioSourceForSound = CreateAudioSourceForSound();
-        ShapesManager tempShape = CreateBoard();
-        tempShape.Construct(GameObject.FindWithTag(InitialPointTag).transform.position, _audioService, _progressService, tempAudioSourceForSound, levelData);
-        tempShape.Init();
-        CreateTimerStarter().Construct(_timerService, levelData);
-        CreateResultManager().Construct(_progressService.Progress.WorldData, levelData, _timerService, _uIFactory);
-    }
+  {
+    LevelStaticData levelData = LevelStaticData();
+    _audioService.PlayLoopSound(SoundType.Main_Theme_Music, CreateAudioSourceForMusic().GetComponent<AudioSource>());
+    AudioSource tempAudioSourceForSound = CreateAudioSourceForSound();
+    Board tempShape = CreateBoard();
+    tempShape.Construct(GameObject.FindWithTag(InitialPointTag).transform.position, _audioService, _progressService, tempAudioSourceForSound, levelData);
+    
+    CreateTimerStarter().Construct(_timerService, levelData);
+    ResultManager tempResultManager = CreateResultManager();
+    tempResultManager.Construct(_progressService.Progress.WorldData, levelData, _timerService, _uIFactory);
+    tempShape.Init(tempResultManager);
+  }
 
-    private ShapesManager CreateBoard() => 
-      _gameFactory.CreateBoard(GameObject.FindWithTag(InitialPointTag).transform).GetComponent<ShapesManager>();
+    private Board CreateBoard() => 
+      _gameFactory.CreateBoard(GameObject.FindWithTag(InitialPointTag).transform).GetComponent<Board>();
 
     private LevelStaticData LevelStaticData() => 
       _staticData.ForLevel(SceneManager.GetActiveScene().name);

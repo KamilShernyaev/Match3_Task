@@ -1,4 +1,11 @@
-
+/// <summary>
+/// Класс BootstrapState представляет состояние инициализации игры.
+/// </summary>
+/// <remarks>
+/// В этом состоянии выполняются необходимые действия при запуске игры,
+/// такие как регистрация сервисов и загрузка начальной сцены игры.
+/// После загрузки начальной сцены, игровой автомат переходит в состояние MainMenuState.
+/// </remarks>
 public class BootstrapState : IState
 {
     private const string Initial = "Initial";
@@ -6,7 +13,10 @@ public class BootstrapState : IState
     private readonly SceneLoader _sceneLoader;
     private readonly AllServices _services;
 
-    public BootstrapState(GameStateMachine stateMachine, SceneLoader sceneLoader, AllServices services)
+    public BootstrapState(
+        GameStateMachine stateMachine, 
+        SceneLoader sceneLoader, 
+        AllServices services)
     {
         _stateMachine = stateMachine;
         _sceneLoader = sceneLoader;
@@ -15,14 +25,11 @@ public class BootstrapState : IState
         RegisterServices();
     }
 
-    public void Enter()
-    {
+    public void Enter() => 
         _sceneLoader.Load(Initial, onLoaded: EnterLoadLevel);
-    }
 
     public void Exit()
     {
-        
     }
 
     private void EnterLoadLevel() => 

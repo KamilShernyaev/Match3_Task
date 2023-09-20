@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 328f3fe71fcff854c9010a83267b725a, type: 3}
+  m_Name: Data_Level_02
+  m_EditorClassIdentifier: 
+  LevelKey: Level_02
+  TimeValue: 90
+  TargetScore: 90000
+  Columns: 5
+  Rows: 8
+  PrefabsData:
+    CandyPrefabs:
+    - {fileID: 5922638056999938848, guid: 3544b6da367f4aa4795d91ec8dacad6e, type: 3}
+    - {fileID: 6845572578667313855, guid: d52fcc649ca1d2b41b3fd2818f2661e7, type: 3}
+    - {fileID: 4318338286313425601, guid: d44fc1aed3c259c4fa2168591eeea1e1, type: 3}
+    - {fileID: 6236035410046744234, guid: ed676c737b1502c4c8025b1e6f5937b7, type: 3}
+    BonusPrefabs:
+    - {fileID: 100006, guid: 05a8bdcee045fc043ad3ada7f886981b, type: 3}
+    - {fileID: 100000, guid: d5bafc34271fe1245ac9c4104f0ea5f6, type: 3}
+    - {fileID: 100000, guid: 14ff34be5e5e30748acb8705d69ff1ad, type: 3}
+    - {fileID: 100000, guid: ca9c6ccd812f30547923ffc67023d2dd, type: 3}
