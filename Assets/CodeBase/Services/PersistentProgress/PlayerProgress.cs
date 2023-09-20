@@ -4,4 +4,8 @@ using System;
 public class PlayerProgress
 {
     public WorldData WorldData;
+    public PlayerProgress()
+    {
+        WorldData = new WorldData();
+    }
 }

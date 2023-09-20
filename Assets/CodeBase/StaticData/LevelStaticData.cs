@@ -5,7 +5,9 @@ using UnityEngine;
 public class LevelStaticData : ScriptableObject
 {
     public string LevelKey;
-    public Transform InitialPoint;
-    public int width;
-    public int height;
+    public int TimeValue;
+    public int TargetScore;
+    public int Columns;
+    public int Rows;
+    public PrefabsData PrefabsData;
 }

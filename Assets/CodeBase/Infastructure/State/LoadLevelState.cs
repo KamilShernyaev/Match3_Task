@@ -12,6 +12,8 @@ public class LoadLevelState : IPayloadedState<string>
   private readonly IStaticDataService _staticData;
   private readonly IPersistentProgressService _progressService;
   private readonly IAudioService _audioService;
+  private readonly ITimerService _timerService;
+  private readonly IUIFactory _uIFactory;
 
     public LoadLevelState(
       GameStateMachine gameStateMachine, 
@@ -20,7 +22,9 @@ public class LoadLevelState : IPayloadedState<string>
       IGameFactory gameFactory, 
       IStaticDataService staticDataService,
       IPersistentProgressService progressService,
-      IAudioService audioService)
+      IAudioService audioService,
+      ITimerService timerService,
+      IUIFactory uIFactory)
   {
     _stateMachine = gameStateMachine;
     _sceneLoader = sceneLoader;
@@ -29,6 +33,8 @@ public class LoadLevelState : IPayloadedState<string>
     _staticData = staticDataService;
     _progressService = progressService;
     _audioService = audioService;
+    _timerService = timerService;
+    _uIFactory = uIFactory;
   }
 
   public void Enter(string sceneName)
@@ -59,11 +65,15 @@ public class LoadLevelState : IPayloadedState<string>
         LevelStaticData levelData = LevelStaticData();
         _audioService.PlayLoopSound(SoundType.Main_Theme_Music, CreateAudioSourceForMusic().GetComponent<AudioSource>());
         AudioSource tempAudioSourceForSound = CreateAudioSourceForSound();
-        GameObject temp = CreateBoard(levelData);
+        ShapesManager tempShape = CreateBoard();
+        tempShape.Construct(GameObject.FindWithTag(InitialPointTag).transform.position, _audioService, _progressService, tempAudioSourceForSound, levelData);
+        tempShape.Init();
+        CreateTimerStarter().Construct(_timerService, levelData);
+        CreateResultManager().Construct(_progressService.Progress.WorldData, levelData, _timerService, _uIFactory);
     }
 
-    private GameObject CreateBoard(LevelStaticData levelData) => 
-      _gameFactory.CreateBoard(GameObject.FindWithTag(InitialPointTag), levelData);
+    private ShapesManager CreateBoard() => 
+      _gameFactory.CreateBoard(GameObject.FindWithTag(InitialPointTag).transform).GetComponent<ShapesManager>();
 
     private LevelStaticData LevelStaticData() => 
       _staticData.ForLevel(SceneManager.GetActiveScene().name);
@@ -71,6 +81,12 @@ public class LoadLevelState : IPayloadedState<string>
     private AudioSource CreateAudioSourceForSound() => 
       _gameFactory.CreateAudioSource().GetComponent<AudioSource>();
 
-      private AudioSource CreateAudioSourceForMusic() => 
+    private AudioSource CreateAudioSourceForMusic() => 
       _gameFactory.CreateAudioSource().GetComponent<AudioSource>();
+
+    private TimerStarter CreateTimerStarter() => 
+      _gameFactory.CreateTimerStarter().GetComponent<TimerStarter>();
+
+    private ResultManager CreateResultManager() => 
+      _gameFactory.CreateResultManager().GetComponent<ResultManager>();
 }

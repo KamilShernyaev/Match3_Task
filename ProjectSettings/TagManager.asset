@@ -6,6 +6,7 @@ TagManager:
   tags:
   - InitialPoint
   - Temp
+  - UI
   layers:
   - Default
   - TransparentFX

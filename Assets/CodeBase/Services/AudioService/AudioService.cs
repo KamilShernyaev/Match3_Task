@@ -11,11 +11,11 @@ public class AudioService : IAudioService
         _assetProvider = assetProvider;
         RegisterAudio();
     }
-
+    
     private void RegisterAudio()
     {
         cachedAudio = new Dictionary<SoundType, AudioClip>();
-        foreach (AudioItem audioItem in _assetProvider.LoadAudioContainer(AssetPath.AudioPath).AudioItems)
+        foreach (AudioItem audioItem in _assetProvider.LoadAudioContainer(ContantsAssetPath.AudioPath).AudioItems)
         {
             cachedAudio.Add(audioItem.SoundType, audioItem.Sound);
         }

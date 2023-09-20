@@ -9,7 +9,7 @@ public partial class GameBootstrapper : MonoBehaviour, ICoroutineRunner
     {
         _game = new Game(this, Curtain);
         _game.StateMachine.Enter<BootstrapState>();
-
+        
         DontDestroyOnLoad(this);
     }
 }

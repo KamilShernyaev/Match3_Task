@@ -36,6 +36,8 @@ public class BootstrapState : IState
         _services.RegisterSingle<IGameFactory>(new GameFactory(_services.Single<IAssetProvider>()));
         _services.RegisterSingle<ISaveLoadService>(new SaveLoadService(_services.Single<IPersistentProgressService>(), _services.Single<IGameFactory>()));
         _services.RegisterSingle<IAudioService>(new AudioService(_services.Single<IAssetProvider>()));
+        _services.RegisterSingle<ITimerService>(new TimerService());
+        _services.RegisterSingle<IUIFactory>(new UIFactory(_services.Single<IAssetProvider>()));
         RegisterStaticData();
     }
 
